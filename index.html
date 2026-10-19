@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile | DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#hero" class="logo">~/my-profile</a>
+    <button class="menu-btn" id="menuBtn" aria-label="เมนู">☰</button>
+    <ul id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">$ whoami</p>
+      <h1>สวัสดีครับ ผมชื่อ <span> Hero.951 </span></h1>
+      <p class="typed" id="typed"></p>
+      <p class="lead" style="margin:16px 0 0">System Engineer ที่กำลังก้าวสู่สาย DevOps — ชอบทำให้ระบบเสถียร อัตโนมัติ และ deploy ได้อย่างมั่นใจ</p>
+      <div class="btns">
+        <a href="#projects" class="btn btn-primary">ดูผลงาน</a>
+        <a href="#contact" class="btn btn-ghost">ติดต่อฉัน</a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i></div>
+      <div class="term-body">
+        <div><span class="c">$</span> cat profile.yaml</div><br>
+        <div>role: <span class="v">System Engineer → DevOps</span></div>
+        <div>location: <span class="v">Thailand 🇹🇭</span></div>
+        <div>focus:</div>
+        <div>&nbsp;&nbsp;- <span class="v">CI/CD</span></div>
+        <div>&nbsp;&nbsp;- <span class="v">Docker & Kubernetes</span></div>
+        <div>&nbsp;&nbsp;- <span class="v">Infrastructure as Code</span></div>
+        <div>status: <span class="c">open_to_work ✔</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ABOUT -->
+<section id="about">
+  <div class="container about-grid reveal">
+    <div class="avatar">ME</div>
+    <div>
+      <p class="eyebrow">// about me</p>
+      <h2>เกี่ยวกับฉัน</h2>
+      <p>ฉันทำงานเป็น System Engineer ดูแลโครงสร้างพื้นฐานไอทีขององค์กร ทั้ง Network, Firewall (FortiGate), Microsoft 365 / SharePoint และ Server ต่าง ๆ</p>
+      <p style="margin-top:12px;color:var(--muted)">ตอนนี้กำลังพัฒนาตัวเองสู่สาย DevOps ด้วยการเรียนรู้ Linux, Git, Docker, CI/CD และ Cloud พร้อมลงมือทำโปรเจกต์จริง เพื่อเชื่อมโลกของ Operations กับ Development เข้าด้วยกัน</p>
+      <div class="stats">
+        <div class="stat"><b data-count="5">0</b><small>ปีประสบการณ์</small></div>
+        <div class="stat"><b data-count="10">0</b><small>โปรเจกต์</small></div>
+        <div class="stat"><b data-count="15">0</b><small>เครื่องมือ</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="eyebrow">// skills</p>
+    <h2>ทักษะ</h2>
+    <p class="lead">เครื่องมือและเทคโนโลยีที่ใช้งานและกำลังเรียนรู้</p>
+    <div class="skills-grid reveal" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- 4. PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="eyebrow">// projects</p>
+    <h2>ผลงาน</h2>
+    <p class="lead">โปรเจกต์ที่ลงมือทำจริง</p>
+    <div class="filters" id="filters">
+      <button class="filter active" data-f="all">ทั้งหมด</button>
+      <button class="filter" data-f="devops">DevOps</button>
+      <button class="filter" data-f="web">Web App</button>
+      <button class="filter" data-f="automation">Automation</button>
+    </div>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
+</section>
+
+<!-- 5. CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="eyebrow">// contact</p>
+    <h2>ติดต่อฉัน</h2>
+    <p class="lead">สนใจร่วมงานหรือพูดคุยเรื่อง DevOps ทักมาได้เลยค่ะ</p>
+    <div class="contact-grid reveal">
+      <div>
+        <a class="contact-item" href="mailto:your@email.com"><span>📧</span>hero.951@email.com</a>
+        <a class="contact-item" href="https://github.com/yourname" target="_blank"><span>💻</span>github.com/hero.951</a>
+        <a class="contact-item" href="https://linkedin.com/in/yourname" target="_blank"><span>🔗</span>linkedin.com/in/hero.951</a>
+        <div class="contact-item"><span>📍</span>Bangkok, Thailand</div>
+      </div>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="ชื่อของคุณ" required>
+        <input type="email" id="email" placeholder="อีเมล" required>
+        <textarea id="message" rows="5" placeholder="ข้อความ" required></textarea>
+        <button class="btn btn-primary" type="submit" style="cursor:pointer;font-family:inherit;font-size:1rem">ส่งข้อความ</button>
+        <p class="form-msg" id="formMsg"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="year"></span> 🤖 Hero.951 🤖</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

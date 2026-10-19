@@ -1,0 +1,22 @@
+# Personal Profile
+
+เว็บ Personal Profile แบบ static (HTML + CSS + JavaScript) สำหรับ System Engineer ที่กำลังเปลี่ยนสายสู่ DevOps
+
+## Sections
+Hero · About · Skills · Projects · Contact
+
+## โครงสร้าง
+```
+├── index.html
+├── css/style.css
+└── js/script.js
+```
+
+## วิธีรัน
+เปิด `index.html` ในเบราว์เซอร์ได้เลย ไม่ต้องติดตั้งอะไร
+
+## แก้ไขข้อมูล
+แก้ array `skills` และ `projects` ใน `js/script.js`
+
+## Live demo
+https://bluewave951.github.io/personal-profile/
