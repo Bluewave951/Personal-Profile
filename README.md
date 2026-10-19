@@ -15,6 +15,3 @@ Hero · About · Skills · Projects · Contact
 
 ## แก้ไขข้อมูล
 แก้ array `skills` และ `projects` ในแท็ก `<script>` ของ `profile.html`
-
-## Live demo
-https://bluewave951.github.io/personal-profile/
