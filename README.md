@@ -7,15 +7,13 @@ Hero · About · Skills · Projects · Contact
 
 ## โครงสร้าง
 ```
-├── index.html
-├── css/style.css
-└── js/script.js
+└── profile.html   (HTML + CSS + JS ในไฟล์เดียว)
 ```
 
 ## วิธีรัน
-เปิด `index.html` ในเบราว์เซอร์ได้เลย ไม่ต้องติดตั้งอะไร
+เปิด `profile.html` ในเบราว์เซอร์ได้เลย ไม่ต้องติดตั้งอะไร
 
 ## แก้ไขข้อมูล
-แก้ array `skills` และ `projects` ใน `js/script.js`
+แก้ array `skills` และ `projects` ในแท็ก `<script>` ของ `profile.html`
 
 

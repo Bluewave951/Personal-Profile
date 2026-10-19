@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hero.951 — System Engineer ที่กำลังก้าวสู่สาย DevOps">
+  <title>Hero.951 | DevOps Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+/* ===== Design tokens ===== */
+:root{
+  --bg:#0f1419; --bg2:#161c24; --card:#1c2430; --text:#e6edf3; --muted:#8b98a8;
+  --accent:#3fb950; --accent2:#58a6ff; --border:#2a3441;
+  --header-h:64px; --gutter:16px; --radius:12px;
+}
+
+/* ===== Base (mobile-first) ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--header-h)}
+body{font-family:'Prompt',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:1rem;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+p+p{margin-top:12px}
+h1,h2,h3{line-height:1.25}
+h2{font-size:clamp(1.6rem,4vw,2rem);margin-bottom:6px}
+.container{width:100%;max-width:1080px;margin:0 auto;padding:0 var(--gutter)}
+.section{padding:64px 0}
+.alt{background:var(--bg2)}
+.section-head{margin-bottom:28px}
+.eyebrow{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.875rem}
+.lead,.muted{color:var(--muted)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip-link{position:absolute;left:-999px;top:8px;background:var(--accent);color:#0f1419;padding:8px 14px;border-radius:6px;z-index:100}
+.skip-link:focus{left:8px}
+:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+
+/* ===== Header / Nav ===== */
+.site-header{position:fixed;inset:0 0 auto;height:var(--header-h);background:rgba(15,20,25,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:50}
+.header-inner{display:flex;justify-content:space-between;align-items:center;height:100%}
+.logo{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent)}
+.menu-btn{background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer;width:44px;height:44px}
+.nav-links{display:none;position:absolute;top:var(--header-h);left:0;right:0;flex-direction:column;background:var(--bg2);border-bottom:1px solid var(--border);padding:8px var(--gutter) 16px}
+.nav-links.open{display:flex}
+.nav-links a{display:block;padding:12px 4px;color:var(--muted);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+
+/* ===== Buttons ===== */
+.btns{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:10px 24px;border-radius:8px;font:600 1rem 'Prompt',sans-serif;border:1px solid var(--accent);cursor:pointer;transition:.2s}
+.btn-primary{background:var(--accent);color:#0f1419}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-ghost{color:var(--accent);background:transparent}
+.btn-ghost:hover{background:rgba(63,185,80,.1)}
+
+/* ===== Hero ===== */
+.hero{min-height:100svh;display:flex;align-items:center;padding:calc(var(--header-h) + 40px) 0 56px}
+.hero-grid{display:grid;gap:40px}
+.hero h1{font-size:clamp(2rem,7vw,3.5rem);margin:10px 0}
+.highlight{color:var(--accent)}
+.typed{font-family:'JetBrains Mono',monospace;color:var(--accent2);min-height:1.7em}
+.typed::after{content:'▌';animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.hero .lead{margin-top:14px;max-width:52ch}
+.terminal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.term-bar{background:var(--card);padding:10px 14px;display:flex;gap:6px}
+.term-bar i{width:12px;height:12px;border-radius:50%;background:#ff5f56}
+.term-bar i:nth-child(2){background:#ffbd2e}
+.term-bar i:nth-child(3){background:#27c93f}
+.term-body{padding:18px;color:var(--muted);font:.8rem/1.7 'JetBrains Mono',monospace;overflow-x:auto;white-space:pre}
+.term-body .c{color:var(--accent)} .term-body .v{color:var(--accent2)}
+
+/* ===== About ===== */
+.about-grid{display:grid;gap:32px;align-items:center}
+.avatar{width:min(200px,60%);aspect-ratio:1;margin:0 auto;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:clamp(3rem,10vw,5rem);font-weight:700;color:#0f1419}
+.about-grid h2{margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 8px;text-align:center;display:flex;flex-direction:column-reverse}
+.stat dd{font-size:clamp(1.4rem,5vw,1.8rem);font-weight:700;color:var(--accent);line-height:1.2}
+.stat dt{color:var(--muted);font-size:.8rem}
+
+/* ===== Skills ===== */
+.skills-grid{display:grid;gap:16px;grid-template-columns:1fr}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.skill-card h3{margin-bottom:14px;font-size:1.05rem}
+.bar{margin-bottom:12px}
+.bar-label{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted)}
+.bar-track{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:4px}
+.bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width 1.2s ease}
+
+/* ===== Projects ===== */
+.filters{display:flex;gap:8px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.filter{flex:0 0 auto;min-height:40px;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:6px 16px;border-radius:20px;cursor:pointer;font-family:inherit}
+.filter.active{border-color:var(--accent);color:var(--accent)}
+.projects-grid{display:grid;gap:16px;grid-template-columns:1fr}
+.project{height:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;transition:.2s}
+.project:hover{transform:translateY(-4px);border-color:var(--accent)}
+.project .icon{font-size:2rem;margin-bottom:6px}
+.project p{color:var(--muted);font-size:.95rem;flex:1;margin:8px 0 16px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:var(--bg);color:var(--accent2);padding:3px 10px;border-radius:6px}
+
+/* ===== Contact ===== */
+.contact-grid{display:grid;gap:28px}
+address{font-style:normal}
+.contact-item{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin:0 0 10px;word-break:break-word}
+a.contact-item:hover{border-color:var(--accent)}
+.contact-item span{font-size:1.3rem}
+fieldset{border:0;display:grid;gap:6px}
+label{font-size:.9rem;color:var(--muted);margin-top:6px}
+input,textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font:1rem 'Prompt',sans-serif}
+input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.contact-form .btn{margin-top:12px;width:100%}
+.form-msg{color:var(--accent);min-height:1.5em}
+
+/* ===== Footer ===== */
+.site-footer{border-top:1px solid var(--border);padding:24px 0;text-align:center;color:var(--muted)}
+
+/* ===== Reveal animation ===== */
+.reveal{opacity:0;transform:translateY(30px);transition:.7s ease}
+.reveal.show{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ===== Tablet ≥ 640px ===== */
+@media (min-width:640px){
+  :root{--gutter:24px}
+  .skills-grid,.projects-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-form .btn{width:auto;justify-self:start}
+  .stat{padding:18px}
+}
+
+/* ===== Desktop ≥ 900px ===== */
+@media (min-width:900px){
+  .section{padding:96px 0}
+  .menu-btn{display:none}
+  .nav-links{display:flex;position:static;flex-direction:row;gap:28px;padding:0;background:none;border:0}
+  .nav-links a{padding:0}
+  .hero-grid{grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
+  .term-body{font-size:.85rem}
+  .about-grid{grid-template-columns:1fr 2fr;gap:48px}
+  .avatar{width:100%;margin:0}
+  .skills-grid{grid-template-columns:repeat(4,1fr)}
+  .projects-grid{grid-template-columns:repeat(3,1fr)}
+  .contact-grid{grid-template-columns:1fr 1.4fr;gap:40px}
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปที่เนื้อหา</a>
+
+  <!-- ===== Header + Navigation ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo" aria-label="กลับหน้าแรก">~/my-profile</a>
+      <button class="menu-btn" id="menuBtn" aria-label="เปิดเมนู" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <nav aria-label="เมนูหลัก">
+        <ul id="navLinks" class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1. HERO -->
+    <section id="hero" class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">$ whoami</p>
+          <h1 id="hero-title">สวัสดีครับ ผมชื่อ <span class="highlight">Hero.951</span></h1>
+          <p class="typed" id="typed" aria-live="polite"></p>
+          <p class="lead">System Engineer ที่กำลังก้าวสู่สาย DevOps — ชอบทำให้ระบบเสถียร อัตโนมัติ และ deploy ได้อย่างมั่นใจ</p>
+          <div class="btns">
+            <a href="#projects" class="btn btn-primary">ดูผลงาน</a>
+            <a href="#contact" class="btn btn-ghost">ติดต่อผม</a>
+          </div>
+        </div>
+        <figure class="terminal" aria-label="ข้อมูลโปรไฟล์ในรูปแบบ terminal">
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <pre class="term-body"><code><span class="c">$</span> cat profile.yaml
+
+role: <span class="v">System Engineer → DevOps</span>
+location: <span class="v">Thailand 🇹🇭</span>
+focus:
+  - <span class="v">CI/CD</span>
+  - <span class="v">Docker &amp; Kubernetes</span>
+  - <span class="v">Infrastructure as Code</span>
+status: <span class="c">open_to_work ✔</span></code></pre>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT -->
+    <section id="about" class="section alt" aria-labelledby="about-title">
+      <div class="container about-grid reveal">
+        <figure class="avatar" aria-hidden="true">ME</figure>
+        <article>
+          <header>
+            <p class="eyebrow">// about me</p>
+            <h2 id="about-title">เกี่ยวกับผม</h2>
+          </header>
+          <p>ผมทำงานเป็น System Engineer ดูแลโครงสร้างพื้นฐานไอทีขององค์กร ทั้ง Network, Firewall (FortiGate), Microsoft 365 / SharePoint และ Server ต่าง ๆ</p>
+          <p class="muted">ตอนนี้กำลังพัฒนาตัวเองสู่สาย DevOps ด้วยการเรียนรู้ Linux, Git, Docker, CI/CD และ Cloud พร้อมลงมือทำโปรเจกต์จริง เพื่อเชื่อมโลกของ Operations กับ Development เข้าด้วยกัน</p>
+          <dl class="stats">
+            <div class="stat"><dt>ปีประสบการณ์</dt><dd data-count="5">0</dd></div>
+            <div class="stat"><dt>โปรเจกต์</dt><dd data-count="10">0</dd></div>
+            <div class="stat"><dt>เครื่องมือ</dt><dd data-count="15">0</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. SKILLS -->
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">// skills</p>
+          <h2 id="skills-title">ทักษะ</h2>
+          <p class="lead">เครื่องมือและเทคโนโลยีที่ใช้งานและกำลังเรียนรู้</p>
+        </header>
+        <div class="skills-grid reveal" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- 4. PROJECTS -->
+    <section id="projects" class="section alt" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">// projects</p>
+          <h2 id="projects-title">ผลงาน</h2>
+          <p class="lead">โปรเจกต์ที่ลงมือทำจริง</p>
+        </header>
+        <div class="filters" id="filters" role="group" aria-label="กรองผลงานตามหมวด">
+          <button type="button" class="filter active" data-f="all" aria-pressed="true">ทั้งหมด</button>
+          <button type="button" class="filter" data-f="devops" aria-pressed="false">DevOps</button>
+          <button type="button" class="filter" data-f="web" aria-pressed="false">Web App</button>
+          <button type="button" class="filter" data-f="automation" aria-pressed="false">Automation</button>
+        </div>
+        <ul class="projects-grid" id="projectsGrid"></ul>
+      </div>
+    </section>
+
+    <!-- 5. CONTACT -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">// contact</p>
+          <h2 id="contact-title">ติดต่อผม</h2>
+          <p class="lead">สนใจร่วมงานหรือพูดคุยเรื่อง DevOps ทักมาได้เลยครับ</p>
+        </header>
+        <div class="contact-grid reveal">
+          <address class="contact-list">
+            <a class="contact-item" href="mailto:hero.951@email.com"><span aria-hidden="true">📧</span>hero.951@email.com</a>
+            <a class="contact-item" href="https://github.com/hero.951" target="_blank" rel="noopener"><span aria-hidden="true">💻</span>github.com/hero.951</a>
+            <a class="contact-item" href="https://linkedin.com/in/hero.951" target="_blank" rel="noopener"><span aria-hidden="true">🔗</span>linkedin.com/in/hero.951</a>
+            <p class="contact-item"><span aria-hidden="true">📍</span>Bangkok, Thailand</p>
+          </address>
+          <form id="contactForm" class="contact-form" novalidate>
+            <fieldset>
+              <legend class="sr-only">ส่งข้อความถึงผม</legend>
+              <label for="name">ชื่อ</label>
+              <input type="text" id="name" name="name" placeholder="ชื่อของคุณ" autocomplete="name" required>
+              <label for="email">อีเมล</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+              <label for="message">ข้อความ</label>
+              <textarea id="message" name="message" rows="5" placeholder="พิมพ์ข้อความ..." required></textarea>
+              <button class="btn btn-primary" type="submit">ส่งข้อความ</button>
+              <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><small>© <time id="year"></time> 🤖 Hero.951 🤖</small></p>
+    </div>
+  </footer>
+
+  <script>
+// ===== Data (แก้ไขข้อมูลของคุณตรงนี้) =====
+const skills = [
+  { group:'🐧 OS & Infra', items:[['Linux',75],['Windows Server',85],['Networking',80]] },
+  { group:'🐳 Containers', items:[['Docker',65],['Kubernetes',40],['Docker Compose',60]] },
+  { group:'⚙️ CI/CD & IaC', items:[['Git / GitHub',70],['GitHub Actions',55],['Terraform',35]] },
+  { group:'☁️ Cloud & Tools', items:[['Microsoft 365',85],['AWS / Azure',45],['Bash / Python',60]] },
+];
+const projects = [
+  { icon:'🚀', cat:'devops', title:'CI/CD Pipeline', desc:'ตั้งค่า GitHub Actions ให้ build, test และ deploy เว็บอัตโนมัติเมื่อ push code', tags:['GitHub Actions','Docker'] },
+  { icon:'🐳', cat:'devops', title:'Dockerized Web App', desc:'นำแอปมาทำเป็น container พร้อม docker-compose สำหรับ app + database', tags:['Docker','Compose','MySQL'] },
+  { icon:'🎫', cat:'web', title:'Helpdesk Ticket System', desc:'ระบบ CRUD สำหรับบันทึกและติดตาม ticket แจ้งปัญหาไอที พร้อม export ข้อมูล', tags:['CRUD','Web','Export'] },
+  { icon:'⛽', cat:'web', title:'Refuel Manage App', desc:'แอปบันทึกค่าน้ำมัน คำนวณอัตราสิ้นเปลือง และสรุปค่าใช้จ่ายรายเดือน', tags:['JavaScript','Chart'] },
+  { icon:'🤖', cat:'automation', title:'LINE Bot ผู้ช่วยจดเงิน', desc:'บอทบน Google Apps Script บันทึกรายจ่ายและรูปสลิปลง Google Sheets / Drive', tags:['Apps Script','LINE API'] },
+  { icon:'📊', cat:'automation', title:'Power BI Helpdesk Report', desc:'Dashboard สรุปสถิติ ticket จาก semantic model บน Power BI Service', tags:['Power BI','DAX'] },
+];
+
+// ===== Typing effect =====
+const words = ['System Engineer','Aspiring DevOps Engineer','Automation Lover','Lifelong Learner'];
+let wi=0, ci=0, del=false; const typedEl=document.getElementById('typed');
+(function type(){
+  const w=words[wi]; typedEl.textContent=w.slice(0,ci);
+  if(!del && ci<w.length) ci++; else if(del && ci>0) ci--;
+  else { del=!del; if(!del) wi=(wi+1)%words.length; }
+  setTimeout(type, del?40:(ci===w.length?1600:90));
+})();
+
+// ===== Render skills (article + list) =====
+document.getElementById('skillsGrid').innerHTML = skills.map(s=>`
+  <article class="skill-card">
+    <h3>${s.group}</h3>
+    <ul>
+      ${s.items.map(([n,v])=>`
+      <li class="bar">
+        <div class="bar-label"><span>${n}</span><span>${v}%</span></div>
+        <div class="bar-track" role="progressbar" aria-label="${n}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${v}">
+          <div class="bar-fill" data-w="${v}"></div>
+        </div>
+      </li>`).join('')}
+    </ul>
+  </article>`).join('');
+
+// ===== Render projects (li > article) + filter =====
+const grid=document.getElementById('projectsGrid');
+function renderProjects(f){
+  grid.innerHTML = projects.filter(p=>f==='all'||p.cat===f).map(p=>`
+    <li>
+      <article class="project">
+        <span class="icon" aria-hidden="true">${p.icon}</span>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <ul class="tags" aria-label="เทคโนโลยีที่ใช้">${p.tags.map(t=>`<li class="tag">${t}</li>`).join('')}</ul>
+      </article>
+    </li>`).join('');
+}
+renderProjects('all');
+document.getElementById('filters').addEventListener('click',e=>{
+  const btn=e.target.closest('.filter'); if(!btn) return;
+  document.querySelectorAll('.filter').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
+  btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+  renderProjects(btn.dataset.f);
+});
+
+// ===== Scroll reveal + skill bars + counters =====
+const io=new IntersectionObserver(entries=>entries.forEach(en=>{
+  if(!en.isIntersecting) return;
+  en.target.classList.add('show');
+  en.target.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');
+  en.target.querySelectorAll('[data-count]').forEach(el=>{
+    let n=0; const t=+el.dataset.count;
+    const iv=setInterval(()=>{el.textContent=++n+'+'; if(n>=t) clearInterval(iv);},80);
+  });
+  io.unobserve(en.target);
+}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ===== Active nav link =====
+const links=document.querySelectorAll('.nav-links a');
+const sections=document.querySelectorAll('main section');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{ if(scrollY>=s.offsetTop-120) cur=s.id; });
+  links.forEach(a=>{
+    const on=a.getAttribute('href')==='#'+cur;
+    a.classList.toggle('active',on);
+    on ? a.setAttribute('aria-current','true') : a.removeAttribute('aria-current');
+  });
+},{passive:true});
+
+// ===== Mobile menu =====
+const nav=document.getElementById('navLinks');
+const menuBtn=document.getElementById('menuBtn');
+function setMenu(open){
+  nav.classList.toggle('open',open);
+  menuBtn.setAttribute('aria-expanded',open);
+  menuBtn.setAttribute('aria-label',open?'ปิดเมนู':'เปิดเมนู');
+  menuBtn.textContent=open?'✕':'☰';
+}
+menuBtn.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
+links.forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') setMenu(false); });
+
+// ===== Contact form (demo) =====
+document.getElementById('contactForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const form=e.target, msg=document.getElementById('formMsg');
+  if(!form.checkValidity()){ msg.style.color='#f85149'; msg.textContent='กรุณากรอกข้อมูลให้ครบและอีเมลให้ถูกต้อง'; return; }
+  msg.style.color='';
+  msg.textContent=`ขอบคุณครับ คุณ${form.name.value} ได้รับข้อความแล้ว ✔`;
+  form.reset();
+});
+
+// ===== Footer year =====
+const y=document.getElementById('year');
+y.textContent=new Date().getFullYear(); y.dateTime=y.textContent;
+
+  </script>
+</body>
+</html>
