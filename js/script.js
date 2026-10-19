@@ -24,24 +24,40 @@ let wi=0, ci=0, del=false; const typedEl=document.getElementById('typed');
   setTimeout(type, del?40:(ci===w.length?1600:90));
 })();
 
-// ===== Render skills =====
+// ===== Render skills (article + list) =====
 document.getElementById('skillsGrid').innerHTML = skills.map(s=>`
-  <div class="skill-card"><h3>${s.group}</h3>
-  ${s.items.map(([n,v])=>`<div class="bar"><div class="bar-label"><span>${n}</span><span>${v}%</span></div>
-  <div class="bar-track"><div class="bar-fill" data-w="${v}"></div></div></div>`).join('')}</div>`).join('');
+  <article class="skill-card">
+    <h3>${s.group}</h3>
+    <ul>
+      ${s.items.map(([n,v])=>`
+      <li class="bar">
+        <div class="bar-label"><span>${n}</span><span>${v}%</span></div>
+        <div class="bar-track" role="progressbar" aria-label="${n}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${v}">
+          <div class="bar-fill" data-w="${v}"></div>
+        </div>
+      </li>`).join('')}
+    </ul>
+  </article>`).join('');
 
-// ===== Render projects + filter =====
+// ===== Render projects (li > article) + filter =====
 const grid=document.getElementById('projectsGrid');
 function renderProjects(f){
   grid.innerHTML = projects.filter(p=>f==='all'||p.cat===f).map(p=>`
-    <div class="project"><div class="icon">${p.icon}</div><h3>${p.title}</h3><p>${p.desc}</p>
-    <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`).join('');
+    <li>
+      <article class="project">
+        <span class="icon" aria-hidden="true">${p.icon}</span>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <ul class="tags" aria-label="เทคโนโลยีที่ใช้">${p.tags.map(t=>`<li class="tag">${t}</li>`).join('')}</ul>
+      </article>
+    </li>`).join('');
 }
 renderProjects('all');
 document.getElementById('filters').addEventListener('click',e=>{
-  if(!e.target.dataset.f) return;
-  document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
-  e.target.classList.add('active'); renderProjects(e.target.dataset.f);
+  const btn=e.target.closest('.filter'); if(!btn) return;
+  document.querySelectorAll('.filter').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
+  btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+  renderProjects(btn.dataset.f);
 });
 
 // ===== Scroll reveal + skill bars + counters =====
@@ -50,28 +66,49 @@ const io=new IntersectionObserver(entries=>entries.forEach(en=>{
   en.target.classList.add('show');
   en.target.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');
   en.target.querySelectorAll('[data-count]').forEach(el=>{
-    let n=0,t=+el.dataset.count; const iv=setInterval(()=>{el.textContent=++n+'+'; if(n>=t)clearInterval(iv)},80);
+    let n=0; const t=+el.dataset.count;
+    const iv=setInterval(()=>{el.textContent=++n+'+'; if(n>=t) clearInterval(iv);},80);
   });
   io.unobserve(en.target);
-}),{threshold:.2});
+}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 // ===== Active nav link =====
-const links=document.querySelectorAll('nav ul a');
+const links=document.querySelectorAll('.nav-links a');
+const sections=document.querySelectorAll('main section');
 window.addEventListener('scroll',()=>{
-  let cur=''; document.querySelectorAll('section').forEach(s=>{ if(scrollY>=s.offsetTop-120) cur=s.id; });
-  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-});
+  let cur='';
+  sections.forEach(s=>{ if(scrollY>=s.offsetTop-120) cur=s.id; });
+  links.forEach(a=>{
+    const on=a.getAttribute('href')==='#'+cur;
+    a.classList.toggle('active',on);
+    on ? a.setAttribute('aria-current','true') : a.removeAttribute('aria-current');
+  });
+},{passive:true});
 
 // ===== Mobile menu =====
 const nav=document.getElementById('navLinks');
-document.getElementById('menuBtn').onclick=()=>nav.classList.toggle('open');
-links.forEach(a=>a.onclick=()=>nav.classList.remove('open'));
+const menuBtn=document.getElementById('menuBtn');
+function setMenu(open){
+  nav.classList.toggle('open',open);
+  menuBtn.setAttribute('aria-expanded',open);
+  menuBtn.setAttribute('aria-label',open?'ปิดเมนู':'เปิดเมนู');
+  menuBtn.textContent=open?'✕':'☰';
+}
+menuBtn.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
+links.forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') setMenu(false); });
 
 // ===== Contact form (demo) =====
 document.getElementById('contactForm').addEventListener('submit',e=>{
   e.preventDefault();
-  document.getElementById('formMsg').textContent=`ขอบคุณค่ะ คุณ${document.getElementById('name').value} ได้รับข้อความแล้ว ✔`;
-  e.target.reset();
+  const form=e.target, msg=document.getElementById('formMsg');
+  if(!form.checkValidity()){ msg.style.color='#f85149'; msg.textContent='กรุณากรอกข้อมูลให้ครบและอีเมลให้ถูกต้อง'; return; }
+  msg.style.color='';
+  msg.textContent=`ขอบคุณครับ คุณ${form.name.value} ได้รับข้อความแล้ว ✔`;
+  form.reset();
 });
-document.getElementById('year').textContent=new Date().getFullYear();
+
+// ===== Footer year =====
+const y=document.getElementById('year');
+y.textContent=new Date().getFullYear(); y.dateTime=y.textContent;

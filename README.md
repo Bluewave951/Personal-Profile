@@ -18,5 +18,4 @@ Hero · About · Skills · Projects · Contact
 ## แก้ไขข้อมูล
 แก้ array `skills` และ `projects` ใน `js/script.js`
 
-## Live demo
-https://bluewave951.github.io/personal-profile/
+
